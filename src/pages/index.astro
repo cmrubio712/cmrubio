@@ -31,6 +31,18 @@ const coreStrengths = [
   { name: "HTML / CSS", level: 80 },
 ];
 
+const experience = [
+  {
+    role: "Software Developer",
+    company: "Sandia National Laboratories",
+    period: "Current",
+    bullets: [
+      "Software development work with a professional background in computer networks.",
+      "Serving as VP of Finance for the SHPE New Mexico Professional Chapter, building on 10+ years of active SHPE membership and leadership.",
+    ],
+  },
+];
+
 const projects = [
   {
     name: "SHPE New Mexico",
@@ -139,18 +151,25 @@ const projects = [
             <p class="section-label">Experience</p>
             <h2 class="section-title">Work Experience</h2>
           </div>
-          <div class="card experience-placeholder reveal">
-            <span class="monogram placeholder-monogram">CR</span>
-            <div>
-              <h3>Updating this section</h3>
-              <p>
-                I'm currently refreshing my work history with recent roles and
-                projects. In the meantime, feel free to reach out directly —
-                I'm happy to walk through my background.
-              </p>
-              <a href="#contact" class="btn btn-ghost placeholder-cta">Contact Me</a>
+          {experience.map((job) => (
+            <div class="card experience-card reveal">
+              <div class="experience-header">
+                <div>
+                  <h3>{job.role}</h3>
+                  <p class="experience-company">{job.company}</p>
+                </div>
+                <span class="chip experience-period">{job.period}</span>
+              </div>
+              <ul class="experience-bullets">
+                {job.bullets.map((bullet) => (
+                  <li>{bullet}</li>
+                ))}
+              </ul>
             </div>
-          </div>
+          ))}
+          <p class="experience-note">
+            Want the full rundown? <a href="#contact">Get in touch</a> — happy to share more.
+          </p>
         </div>
       </section>
 
@@ -505,43 +524,58 @@ const projects = [
     width: var(--level);
   }
 
-  .experience-placeholder {
-    display: flex;
-    gap: 24px;
-    align-items: flex-start;
+  .experience-card {
     padding: 32px;
   }
 
-  @media (max-width: 480px) {
-    .experience-placeholder {
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-    }
-
-    .placeholder-cta {
-      align-self: center;
-    }
+  .experience-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 18px;
   }
 
-  .placeholder-monogram {
-    width: 52px;
-    height: 52px;
-    font-size: 1.1rem;
-    flex-shrink: 0;
-    opacity: 0.9;
-  }
-
-  .experience-placeholder h3 {
+  .experience-header h3 {
     font-size: 1.2rem;
     font-weight: 700;
-    margin-bottom: 8px;
   }
 
-  .experience-placeholder p {
+  .experience-company {
     color: var(--text-muted);
-    max-width: 56ch;
-    margin: 0 0 18px;
+    font-size: 0.92rem;
+    margin: 4px 0 0;
+  }
+
+  .experience-period {
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+
+  .experience-bullets {
+    margin: 0;
+    padding-left: 20px;
+    color: var(--text-muted);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .experience-note {
+    margin-top: 20px;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+  }
+
+  .experience-note a {
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  @media (max-width: 480px) {
+    .experience-header {
+      flex-direction: column;
+    }
   }
 
   .project-card {
