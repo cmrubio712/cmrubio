@@ -47,6 +47,17 @@ const selfPath = lang === "en" ? "/" : "/es/";
         } catch (e) {}
       })();
     </script>
+    <script is:inline>
+      (function () {
+        // Dark is the default theme; apply a stored "light" preference
+        // before paint so there's no flash of the wrong theme.
+        try {
+          if (localStorage.getItem("cr-theme") === "light") {
+            document.documentElement.setAttribute("data-theme", "light");
+          }
+        } catch (e) {}
+      })();
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link

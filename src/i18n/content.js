@@ -17,6 +17,9 @@ export const content = {
       targetLang: "es",
       ariaLabel: "Switch to Spanish",
     },
+    themeToggle: {
+      ariaLabel: "Toggle light/dark theme",
+    },
     hero: {
       eyebrow: "Software Developer",
       tagline:
@@ -180,6 +183,9 @@ export const content = {
       href: "/",
       targetLang: "en",
       ariaLabel: "Cambiar a inglés",
+    },
+    themeToggle: {
+      ariaLabel: "Cambiar tema claro/oscuro",
     },
     hero: {
       eyebrow: "Desarrollador de Software",

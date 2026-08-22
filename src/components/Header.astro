@@ -16,14 +16,32 @@ const t = content[lang];
       <a href="#experience">{t.nav.experience}</a>
       <a href="#education">{t.nav.education}</a>
       <a href="#projects">{t.nav.projects}</a>
-      <a
-        href={t.langToggle.href}
-        class="lang-toggle"
-        data-lang-toggle={t.langToggle.targetLang}
-        aria-label={t.langToggle.ariaLabel}
-      >
-        {t.langToggle.label}
-      </a>
+      <div class="toggle-row">
+        <a
+          href={t.langToggle.href}
+          class="lang-toggle"
+          data-lang-toggle={t.langToggle.targetLang}
+          aria-label={t.langToggle.ariaLabel}
+        >
+          {t.langToggle.label}
+        </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label={t.themeToggle.ariaLabel} aria-pressed="false">
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <circle cx="12" cy="12" r="4"></circle>
+            <line x1="12" y1="2" x2="12" y2="4"></line>
+            <line x1="12" y1="20" x2="12" y2="22"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="2" y1="12" x2="4" y2="12"></line>
+            <line x1="20" y1="12" x2="22" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+          </svg>
+        </button>
+      </div>
       <a href="#contact" class="btn btn-primary nav-cta">{t.nav.contact}</a>
     </nav>
     <button
@@ -128,6 +146,12 @@ const t = content[lang];
     font-size: 0.88rem;
   }
 
+  .toggle-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
   .lang-toggle {
     display: inline-flex;
     align-items: center;
@@ -144,6 +168,53 @@ const t = content[lang];
   .lang-toggle:hover {
     border-color: var(--accent);
     color: var(--accent);
+  }
+
+  .theme-toggle {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: none;
+    color: var(--text);
+    cursor: pointer;
+    padding: 0;
+  }
+
+  .theme-toggle:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .theme-toggle svg {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+
+  .theme-toggle .icon-sun {
+    opacity: 1;
+    transform: rotate(0deg);
+  }
+
+  .theme-toggle .icon-moon {
+    opacity: 0;
+    transform: rotate(-40deg);
+  }
+
+  :root[data-theme="light"] .theme-toggle .icon-sun {
+    opacity: 0;
+    transform: rotate(40deg);
+  }
+
+  :root[data-theme="light"] .theme-toggle .icon-moon {
+    opacity: 1;
+    transform: rotate(0deg);
   }
 
   .nav-toggle {
@@ -225,7 +296,7 @@ const t = content[lang];
       border-bottom: 1px solid var(--border);
     }
 
-    .lang-toggle {
+    .toggle-row {
       align-self: flex-start;
       margin-top: 12px;
     }
@@ -261,6 +332,28 @@ const t = content[lang];
         localStorage.setItem("cr-lang", el.getAttribute("data-lang-toggle") || "en");
       } catch (e) {}
     });
+  });
+
+  const themeToggle = document.getElementById("theme-toggle");
+  const root = document.documentElement;
+
+  themeToggle?.setAttribute("aria-pressed", String(root.getAttribute("data-theme") === "light"));
+
+  themeToggle?.addEventListener("click", () => {
+    const isLight = root.getAttribute("data-theme") === "light";
+    const next = isLight ? "dark" : "light";
+
+    if (next === "light") {
+      root.setAttribute("data-theme", "light");
+    } else {
+      root.removeAttribute("data-theme");
+    }
+
+    try {
+      localStorage.setItem("cr-theme", next);
+    } catch (e) {}
+
+    themeToggle.setAttribute("aria-pressed", String(next === "light"));
   });
 
   const progressBar = document.getElementById("scroll-progress");

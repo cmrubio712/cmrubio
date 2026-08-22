@@ -1,21 +1,36 @@
 :root {
+  /* Dark is the default theme; [data-theme="light"] below overrides it. */
+  --bg: #0d0f14;
+  --bg-alt: #14171e;
+  --text: #f2f3f5;
+  --text-muted: #9aa0ad;
+  --border: #23262f;
+  --accent: #4f46e5;
+  --accent-2: #0ea5a4;
+  --accent-3: #f59e0b;
+  --accent-4: #ec4899;
+  --accent-soft: rgba(79, 70, 229, 0.18);
+  --accent-2-soft: rgba(14, 165, 164, 0.18);
+  --accent-3-soft: rgba(245, 158, 11, 0.18);
+  --accent-4-soft: rgba(236, 72, 153, 0.18);
+  --radius: 14px;
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.2), 0 8px 24px rgba(0, 0, 0, 0.24);
+  --shadow-hover: 0 20px 44px rgba(0, 0, 0, 0.45);
+  --max-width: 960px;
+}
+
+:root[data-theme="light"] {
   --bg: #fafafa;
   --bg-alt: #ffffff;
   --text: #14161a;
   --text-muted: #5b6270;
   --border: #e7e8ec;
-  --accent: #4f46e5;
-  --accent-2: #0ea5a4;
-  --accent-3: #f59e0b;
-  --accent-4: #ec4899;
   --accent-soft: #eef0ff;
   --accent-2-soft: #e2f9f7;
   --accent-3-soft: #fef3e0;
   --accent-4-soft: #fce7f3;
-  --radius: 14px;
   --shadow: 0 1px 2px rgba(20, 22, 26, 0.04), 0 8px 24px rgba(20, 22, 26, 0.06);
   --shadow-hover: 0 20px 40px rgba(20, 22, 26, 0.14);
-  --max-width: 960px;
 }
 
 * {
@@ -106,8 +121,8 @@ a {
 .btn-primary {
   position: relative;
   overflow: hidden;
-  background: var(--text);
-  color: #fff;
+  background: #fff;
+  color: #0d0f14;
 }
 
 .btn-primary:hover {
@@ -122,9 +137,18 @@ a {
   left: -60%;
   width: 40%;
   height: 100%;
-  background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+  background: linear-gradient(120deg, transparent, rgba(0, 0, 0, 0.15), transparent);
   transform: skewX(-20deg);
   transition: left 0.5s ease;
+}
+
+:root[data-theme="light"] .btn-primary {
+  background: var(--text);
+  color: #fff;
+}
+
+:root[data-theme="light"] .btn-primary::before {
+  background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.5), transparent);
 }
 
 .btn-primary:hover::before {
@@ -167,8 +191,12 @@ a {
 }
 
 .chip-muted {
-  background: #f1f2f5;
+  background: #1b1e26;
   color: var(--text-muted);
+}
+
+:root[data-theme="light"] .chip-muted {
+  background: #f1f2f5;
 }
 
 .chip {
@@ -245,30 +273,3 @@ a {
   }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #0d0f14;
-    --bg-alt: #14171e;
-    --text: #f2f3f5;
-    --text-muted: #9aa0ad;
-    --border: #23262f;
-    --accent-soft: rgba(79, 70, 229, 0.18);
-    --accent-2-soft: rgba(14, 165, 164, 0.18);
-    --accent-3-soft: rgba(245, 158, 11, 0.18);
-    --accent-4-soft: rgba(236, 72, 153, 0.18);
-    --shadow-hover: 0 20px 44px rgba(0, 0, 0, 0.45);
-  }
-
-  .btn-primary {
-    background: #fff;
-    color: #0d0f14;
-  }
-
-  .btn-primary::before {
-    background: linear-gradient(120deg, transparent, rgba(0, 0, 0, 0.15), transparent);
-  }
-
-  .chip-muted {
-    background: #1b1e26;
-  }
-}
