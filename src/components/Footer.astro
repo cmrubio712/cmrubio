@@ -1,0 +1,31 @@
+---
+const year = new Date().getFullYear();
+---
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <span class="monogram footer-monogram">CR</span>
+    <p>&copy; {year} Carlos Rubio. Built with Astro, deployed on Hostinger.</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    border-top: 1px solid var(--border);
+    padding: 32px 0;
+  }
+
+  .footer-inner {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+  }
+
+  .footer-monogram {
+    width: 26px;
+    height: 26px;
+    font-size: 0.6rem;
+    flex-shrink: 0;
+  }
+</style>

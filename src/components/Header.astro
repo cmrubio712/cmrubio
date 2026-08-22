@@ -1,0 +1,78 @@
+---
+---
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a href="#top" class="logo">
+      <span class="monogram nav-monogram">CR</span>
+      <span class="logo-text">Carlos Rubio</span>
+    </a>
+    <nav class="nav-links">
+      <a href="#skills">Skills</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact" class="btn btn-primary nav-cta">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    backdrop-filter: blur(10px);
+    background: color-mix(in srgb, var(--bg) 82%, transparent);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 68px;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    font-family: "Sora", sans-serif;
+  }
+
+  .nav-monogram {
+    width: 34px;
+    height: 34px;
+    font-size: 0.8rem;
+  }
+
+  .logo-text {
+    font-size: 1rem;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    font-size: 0.92rem;
+    font-weight: 500;
+  }
+
+  .nav-links a:not(.nav-cta):hover {
+    color: var(--accent);
+  }
+
+  .nav-cta {
+    padding: 9px 18px;
+    font-size: 0.88rem;
+  }
+
+  @media (max-width: 560px) {
+    .logo-text {
+      display: none;
+    }
+    .nav-links {
+      gap: 16px;
+    }
+  }
+</style>

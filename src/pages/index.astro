@@ -1,0 +1,456 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+
+const skills = [
+  {
+    category: "Languages",
+    items: ["C / C++", "Python 3", "Java", "JavaScript", "Bash", "x86 Assembly"],
+  },
+  {
+    category: "Web",
+    items: ["HTML5", "CSS", "XML"],
+  },
+  {
+    category: "Systems & Tools",
+    items: ["Linux (Ubuntu/CentOS)", "macOS", "SQL", "UML (NetBeans/Eclipse)", "Object-Oriented Programming"],
+  },
+  {
+    category: "Also experienced with",
+    items: ["Agile / Jira", "Git version control", "C# / OpenGL", "R (RStudio)", "MATLAB", "VBA", "MS Access"],
+  },
+];
+
+const projects = [
+  {
+    name: "SHPE New Mexico",
+    url: "https://shpenewmexico.org",
+    description:
+      "Official website for the SHPE New Mexico Professional Chapter — event listings, board member directory, and chapter info, with content synced from Google Sheets and a staging environment for safe previews before every release.",
+    stack: [
+      "Astro",
+      "JavaScript",
+      "Google Sheets API",
+      "GitHub Actions CI/CD",
+      "Hostinger FTP Deploy",
+      "Staging Environment",
+    ],
+  },
+];
+---
+<BaseLayout>
+  <div id="top">
+    <Header />
+
+    <main>
+      <!-- HERO -->
+      <section class="hero">
+        <div class="wrap hero-inner">
+          <span class="monogram hero-monogram">CR</span>
+          <p class="eyebrow">Software Developer</p>
+          <h1 class="hero-title">Carlos Rubio</h1>
+          <p class="hero-tagline">
+            I build clean, fast, well-engineered software — from compilers and
+            simulations to production websites people actually use.
+          </p>
+          <div class="hero-actions">
+            <a href="#projects" class="btn btn-primary">View Projects</a>
+            <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- SKILLS -->
+      <section id="skills" class="section">
+        <div class="wrap">
+          <p class="section-label">Skills</p>
+          <h2 class="section-title">What I work with</h2>
+          <p class="section-intro">
+            A mix of systems-level fundamentals and practical web development,
+            built through coursework, personal projects, and real deployments.
+          </p>
+          <div class="skills-grid">
+            {skills.map((group) => (
+              <div class="card skill-card">
+                <h3 class="skill-category">{group.category}</h3>
+                <div class="skill-chips">
+                  {group.items.map((item) => (
+                    <span class="chip chip-muted">{item}</span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+          <p class="bilingual-note">Bilingual — fluent in English and Spanish.</p>
+        </div>
+      </section>
+
+      <!-- EXPERIENCE -->
+      <section id="experience" class="section section-alt">
+        <div class="wrap">
+          <p class="section-label">Experience</p>
+          <h2 class="section-title">Work Experience</h2>
+          <div class="card experience-placeholder">
+            <span class="monogram placeholder-monogram">CR</span>
+            <div>
+              <h3>Updating this section</h3>
+              <p>
+                I'm currently refreshing my work history with recent roles and
+                projects. In the meantime, feel free to reach out directly —
+                I'm happy to walk through my background.
+              </p>
+              <a href="#contact" class="btn btn-ghost placeholder-cta">Contact Me</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PROJECTS -->
+      <section id="projects" class="section">
+        <div class="wrap">
+          <p class="section-label">Personal Projects</p>
+          <h2 class="section-title">Things I've built</h2>
+          <p class="section-intro">
+            A production website I designed, built, and continue to maintain
+            end-to-end — from front-end to CI/CD deployment.
+          </p>
+
+          {projects.map((project) => (
+            <div class="card project-card">
+              <div class="project-preview">
+                <div class="browser-chrome">
+                  <span class="dot dot-red"></span>
+                  <span class="dot dot-yellow"></span>
+                  <span class="dot dot-green"></span>
+                  <span class="browser-url">{project.url.replace("https://", "")}</span>
+                </div>
+                <div class="browser-body">
+                  <div class="mock-nav">
+                    <span class="mock-logo"></span>
+                    <span class="mock-nav-lines"></span>
+                  </div>
+                  <p class="mock-eyebrow">Society of Hispanic Professional Engineers</p>
+                  <h4 class="mock-headline">SHPE <em>New Mexico</em><br />Professional Chapter</h4>
+                  <p class="mock-sub">Events, board directory &amp; chapter resources.</p>
+                  <div class="mock-buttons">
+                    <span class="mock-btn mock-btn-solid">Upcoming Events</span>
+                    <span class="mock-btn mock-btn-outline">Join the Chapter</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="project-details">
+                <h3>{project.name}</h3>
+                <p>{project.description}</p>
+                <div class="project-stack">
+                  {project.stack.map((tech) => (
+                    <span class="chip">{tech}</span>
+                  ))}
+                </div>
+                <a href={project.url} target="_blank" rel="noopener noreferrer" class="btn btn-primary project-link">
+                  Visit Live Site &nbsp;→
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- CONTACT -->
+      <section id="contact" class="section section-alt contact-section">
+        <div class="wrap contact-inner">
+          <p class="section-label">Contact</p>
+          <h2 class="section-title">Let's work together</h2>
+          <p class="section-intro contact-intro">
+            Open to new opportunities — reach out and let's talk.
+          </p>
+          <a href="mailto:cmrubio712@gmail.com" class="btn btn-primary contact-btn">
+            cmrubio712@gmail.com
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <Footer />
+  </div>
+</BaseLayout>
+
+<style>
+  .hero {
+    padding: 120px 0 96px;
+    text-align: center;
+  }
+
+  .hero-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .hero-monogram {
+    width: 96px;
+    height: 96px;
+    font-size: 2rem;
+    margin-bottom: 28px;
+    box-shadow: 0 12px 32px rgba(79, 70, 229, 0.28);
+  }
+
+  .eyebrow {
+    color: var(--accent);
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin: 0 0 8px;
+  }
+
+  .hero-title {
+    font-size: clamp(2.4rem, 6vw, 3.6rem);
+    font-weight: 700;
+  }
+
+  .hero-tagline {
+    max-width: 46ch;
+    color: var(--text-muted);
+    font-size: 1.08rem;
+    margin: 20px 0 32px;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 14px;
+  }
+
+  .section-alt {
+    background: var(--bg-alt);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 18px;
+  }
+
+  .skill-card {
+    padding: 24px;
+  }
+
+  .skill-category {
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 14px;
+  }
+
+  .skill-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .bilingual-note {
+    margin-top: 28px;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+  }
+
+  .experience-placeholder {
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+    padding: 32px;
+  }
+
+  .placeholder-monogram {
+    width: 52px;
+    height: 52px;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+    opacity: 0.9;
+  }
+
+  .experience-placeholder h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .experience-placeholder p {
+    color: var(--text-muted);
+    max-width: 56ch;
+    margin: 0 0 18px;
+  }
+
+  .project-card {
+    display: grid;
+    grid-template-columns: 1.05fr 1fr;
+    gap: 0;
+    overflow: hidden;
+  }
+
+  @media (max-width: 780px) {
+    .project-card {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .project-preview {
+    background: #0b1120;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .browser-chrome {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 12px 14px;
+    background: #131b2e;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+  }
+
+  .dot-red { background: #ff5f57; }
+  .dot-yellow { background: #febc2e; }
+  .dot-green { background: #28c840; }
+
+  .browser-url {
+    margin-left: 10px;
+    font-size: 0.72rem;
+    color: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.06);
+    padding: 3px 10px;
+    border-radius: 999px;
+  }
+
+  .browser-body {
+    background: linear-gradient(160deg, #1b2340 0%, #2a1f3d 55%, #4a2a2a 100%);
+    padding: 32px 28px 36px;
+    flex: 1;
+  }
+
+  .mock-nav {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 28px;
+  }
+
+  .mock-logo {
+    width: 20px;
+    height: 20px;
+    border-radius: 6px;
+    background: linear-gradient(135deg, #f97316, #fb7185);
+  }
+
+  .mock-nav-lines {
+    margin-left: auto;
+    width: 20px;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 6px 0 rgba(255, 255, 255, 0.4), 0 -6px 0 rgba(255, 255, 255, 0.4);
+  }
+
+  .mock-eyebrow {
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin: 0 0 10px;
+  }
+
+  .mock-headline {
+    color: #fff;
+    font-size: 1.5rem;
+    line-height: 1.25;
+    margin: 0 0 12px;
+  }
+
+  .mock-headline em {
+    font-style: italic;
+    color: #fb923c;
+  }
+
+  .mock-sub {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.82rem;
+    margin: 0 0 20px;
+    max-width: 32ch;
+  }
+
+  .mock-buttons {
+    display: flex;
+    gap: 10px;
+  }
+
+  .mock-btn {
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 8px 14px;
+    border-radius: 999px;
+  }
+
+  .mock-btn-solid {
+    background: #f97316;
+    color: #fff;
+  }
+
+  .mock-btn-outline {
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    color: #fff;
+  }
+
+  .project-details {
+    padding: 32px 28px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .project-details h3 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+
+  .project-details p {
+    color: var(--text-muted);
+    margin: 0 0 18px;
+  }
+
+  .project-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 24px;
+  }
+
+  .project-link {
+    align-self: flex-start;
+  }
+
+  .contact-section {
+    text-align: center;
+  }
+
+  .contact-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .contact-intro {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .contact-btn {
+    font-size: 1rem;
+    padding: 14px 28px;
+  }
+</style>

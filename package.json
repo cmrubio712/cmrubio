@@ -1,0 +1,17 @@
+{
+  "name": "cmrubio-portfolio",
+  "version": "1.0.0",
+  "description": "Carlos Rubio personal portfolio / resume site",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "astro": "^7.2.3"
+  }
+}
