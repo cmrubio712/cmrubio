@@ -1,10 +1,14 @@
 ---
+import { content } from "../i18n/content.js";
+
+const { lang = "en" } = Astro.props;
+const t = content[lang];
 const year = new Date().getFullYear();
 ---
 <footer class="site-footer">
   <div class="wrap footer-inner">
     <span class="monogram footer-monogram">CR</span>
-    <p>&copy; {year} Carlos Rubio. Built with Astro, deployed on Hostinger.</p>
+    <p>{t.footer.text(year)}</p>
   </div>
 </footer>
 

@@ -1,4 +1,8 @@
 ---
+import { content } from "../i18n/content.js";
+
+const { lang = "en" } = Astro.props;
+const t = content[lang];
 ---
 <header class="site-header">
   <div class="wrap header-inner">
@@ -7,10 +11,19 @@
       <span class="logo-text">Carlos Rubio</span>
     </a>
     <nav class="nav-links" id="nav-links">
-      <a href="#skills">Skills</a>
-      <a href="#experience">Experience</a>
-      <a href="#projects">Projects</a>
-      <a href="#contact" class="btn btn-primary nav-cta">Contact</a>
+      <a href="#skills">{t.nav.skills}</a>
+      <a href="#experience">{t.nav.experience}</a>
+      <a href="#education">{t.nav.education}</a>
+      <a href="#projects">{t.nav.projects}</a>
+      <a
+        href={t.langToggle.href}
+        class="lang-toggle"
+        data-lang-toggle={t.langToggle.targetLang}
+        aria-label={t.langToggle.ariaLabel}
+      >
+        {t.langToggle.label}
+      </a>
+      <a href="#contact" class="btn btn-primary nav-cta">{t.nav.contact}</a>
     </nav>
     <button
       class="nav-toggle"
@@ -64,18 +77,36 @@
   .nav-links {
     display: flex;
     align-items: center;
-    gap: 28px;
+    gap: 24px;
     font-size: 0.92rem;
     font-weight: 500;
   }
 
-  .nav-links a:not(.nav-cta):hover {
+  .nav-links a:not(.nav-cta):not(.lang-toggle):hover {
     color: var(--accent);
   }
 
   .nav-cta {
     padding: 9px 18px;
     font-size: 0.88rem;
+  }
+
+  .lang-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+
+  .lang-toggle:hover {
+    border-color: var(--accent);
+    color: var(--accent);
   }
 
   .nav-toggle {
@@ -152,9 +183,14 @@
       pointer-events: auto;
     }
 
-    .nav-links a:not(.nav-cta) {
+    .nav-links a:not(.nav-cta):not(.lang-toggle) {
       padding: 12px 0;
       border-bottom: 1px solid var(--border);
+    }
+
+    .lang-toggle {
+      align-self: flex-start;
+      margin-top: 12px;
     }
 
     .nav-cta {
@@ -174,11 +210,19 @@
     toggle.setAttribute("aria-expanded", String(isOpen));
   });
 
-  links?.querySelectorAll("a").forEach((a) => {
+  links?.querySelectorAll("a:not(.lang-toggle)").forEach((a) => {
     a.addEventListener("click", () => {
       links.classList.remove("open");
       toggle?.classList.remove("open");
       toggle?.setAttribute("aria-expanded", "false");
+    });
+  });
+
+  document.querySelectorAll("[data-lang-toggle]").forEach((el) => {
+    el.addEventListener("click", () => {
+      try {
+        localStorage.setItem("cr-lang", el.getAttribute("data-lang-toggle") || "en");
+      } catch (e) {}
     });
   });
 </script>

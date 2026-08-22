@@ -1,15 +1,52 @@
 ---
 import "../styles/global.css";
-const { title = "Carlos Rubio — Software Developer", description = "Portfolio and resume for Carlos Rubio, software developer." } = Astro.props;
+const {
+  title = "Carlos Rubio — Software Developer",
+  description = "Portfolio and resume for Carlos Rubio, software developer.",
+  lang = "en",
+} = Astro.props;
+
+const altLang = lang === "en" ? "es" : "en";
+const altPath = lang === "en" ? "/es/" : "/";
+const selfPath = lang === "en" ? "/" : "/es/";
 ---
 <!doctype html>
-<html lang="en">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <link rel="alternate" hreflang={lang} href={`https://cmrubio.com${selfPath}`} />
+    <link rel="alternate" hreflang={altLang} href={`https://cmrubio.com${altPath}`} />
+    <link rel="alternate" hreflang="x-default" href="https://cmrubio.com/" />
+    <script is:inline>
+      (function () {
+        // Only steer the neutral "/" entry point. An explicit visit to
+        // "/es/" (a shared link, a bookmark, clicking the toggle) always
+        // wins and is never redirected away from.
+        try {
+          var onSpanish = window.location.pathname.indexOf("/es") === 0;
+          if (onSpanish) return;
+
+          var stored = null;
+          try {
+            stored = localStorage.getItem("cr-lang");
+          } catch (e) {}
+
+          var shouldGoSpanish = stored === "es";
+          if (!stored) {
+            var browserLang = (navigator.language || "").toLowerCase();
+            shouldGoSpanish = browserLang.indexOf("es") === 0;
+          }
+
+          if (shouldGoSpanish) {
+            window.location.replace("/es/" + window.location.search + window.location.hash);
+          }
+        } catch (e) {}
+      })();
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
