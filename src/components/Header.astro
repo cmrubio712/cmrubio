@@ -4,6 +4,7 @@ import { content } from "../i18n/content.js";
 const { lang = "en" } = Astro.props;
 const t = content[lang];
 ---
+<div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
 <header class="site-header">
   <div class="wrap header-inner">
     <a href="#top" class="logo">
@@ -40,6 +41,19 @@ const t = content[lang];
 </header>
 
 <style>
+  .scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    width: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--accent-2), var(--accent-3));
+    transform: scaleX(0);
+    transform-origin: left;
+    z-index: 60;
+    pointer-events: none;
+  }
+
   .site-header {
     position: sticky;
     top: 0;
@@ -82,8 +96,31 @@ const t = content[lang];
     font-weight: 500;
   }
 
+  .nav-links a:not(.nav-cta):not(.lang-toggle) {
+    position: relative;
+  }
+
+  .nav-links a:not(.nav-cta):not(.lang-toggle)::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -4px;
+    height: 2px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.25s ease;
+  }
+
   .nav-links a:not(.nav-cta):not(.lang-toggle):hover {
     color: var(--accent);
+  }
+
+  .nav-links a:not(.nav-cta):not(.lang-toggle):hover::after,
+  .nav-links a.active:not(.nav-cta):not(.lang-toggle)::after {
+    transform: scaleX(1);
   }
 
   .nav-cta {
@@ -225,4 +262,15 @@ const t = content[lang];
       } catch (e) {}
     });
   });
+
+  const progressBar = document.getElementById("scroll-progress");
+  const updateProgress = () => {
+    if (!progressBar) return;
+    const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = scrollable > 0 ? window.scrollY / scrollable : 0;
+    progressBar.style.transform = `scaleX(${Math.min(Math.max(pct, 0), 1)})`;
+  };
+  updateProgress();
+  window.addEventListener("scroll", updateProgress, { passive: true });
+  window.addEventListener("resize", updateProgress);
 </script>

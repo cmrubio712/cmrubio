@@ -6,9 +6,15 @@
   --border: #e7e8ec;
   --accent: #4f46e5;
   --accent-2: #0ea5a4;
+  --accent-3: #f59e0b;
+  --accent-4: #ec4899;
   --accent-soft: #eef0ff;
+  --accent-2-soft: #e2f9f7;
+  --accent-3-soft: #fef3e0;
+  --accent-4-soft: #fce7f3;
   --radius: 14px;
   --shadow: 0 1px 2px rgba(20, 22, 26, 0.04), 0 8px 24px rgba(20, 22, 26, 0.06);
+  --shadow-hover: 0 20px 40px rgba(20, 22, 26, 0.14);
   --max-width: 960px;
 }
 
@@ -98,6 +104,8 @@ a {
 }
 
 .btn-primary {
+  position: relative;
+  overflow: hidden;
   background: var(--text);
   color: #fff;
 }
@@ -105,6 +113,22 @@ a {
 .btn-primary:hover {
   transform: translateY(-1px);
   box-shadow: 0 6px 18px rgba(20, 22, 26, 0.18);
+}
+
+.btn-primary::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -60%;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+  transform: skewX(-20deg);
+  transition: left 0.5s ease;
+}
+
+.btn-primary:hover::before {
+  left: 130%;
 }
 
 .btn-ghost {
@@ -123,6 +147,12 @@ a {
   border: 1px solid var(--border);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-hover);
 }
 
 .chip {
@@ -146,8 +176,33 @@ a {
 }
 
 .chip:hover {
-  transform: translateY(-2px);
+  transform: translateY(-2px) scale(1.04);
   box-shadow: 0 6px 14px rgba(79, 70, 229, 0.16);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .skill-chips .chip,
+  .project-stack .chip {
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.4s ease, transform 0.4s ease, box-shadow 0.15s ease;
+  }
+
+  .reveal.is-visible .skill-chips .chip,
+  .reveal.is-visible .project-stack .chip {
+    opacity: 1;
+    transform: none;
+  }
+
+  .skill-chips .chip:nth-child(1), .project-stack .chip:nth-child(1) { transition-delay: 0.02s; }
+  .skill-chips .chip:nth-child(2), .project-stack .chip:nth-child(2) { transition-delay: 0.06s; }
+  .skill-chips .chip:nth-child(3), .project-stack .chip:nth-child(3) { transition-delay: 0.1s; }
+  .skill-chips .chip:nth-child(4), .project-stack .chip:nth-child(4) { transition-delay: 0.14s; }
+  .skill-chips .chip:nth-child(5), .project-stack .chip:nth-child(5) { transition-delay: 0.18s; }
+  .skill-chips .chip:nth-child(6), .project-stack .chip:nth-child(6) { transition-delay: 0.22s; }
+  .skill-chips .chip:nth-child(7), .project-stack .chip:nth-child(7) { transition-delay: 0.26s; }
+  .skill-chips .chip:nth-child(8), .project-stack .chip:nth-child(8) { transition-delay: 0.3s; }
+  .skill-chips .chip:nth-child(9), .project-stack .chip:nth-child(9) { transition-delay: 0.34s; }
 }
 
 .nav-links a.active:not(.nav-cta) {
@@ -197,12 +252,20 @@ a {
     --text: #f2f3f5;
     --text-muted: #9aa0ad;
     --border: #23262f;
-    --accent-soft: rgba(79, 70, 229, 0.16);
+    --accent-soft: rgba(79, 70, 229, 0.18);
+    --accent-2-soft: rgba(14, 165, 164, 0.18);
+    --accent-3-soft: rgba(245, 158, 11, 0.18);
+    --accent-4-soft: rgba(236, 72, 153, 0.18);
+    --shadow-hover: 0 20px 44px rgba(0, 0, 0, 0.45);
   }
 
   .btn-primary {
     background: #fff;
     color: #0d0f14;
+  }
+
+  .btn-primary::before {
+    background: linear-gradient(120deg, transparent, rgba(0, 0, 0, 0.15), transparent);
   }
 
   .chip-muted {

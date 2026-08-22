@@ -6,6 +6,16 @@ import { content } from "../i18n/content.js";
 
 const { lang = "en" } = Astro.props;
 const t = content[lang];
+
+const skillAccents = ["accent", "accent-2", "accent-3", "accent-4", "neutral"];
+const strengthGradients = [
+  ["var(--accent)", "var(--accent-2)"],
+  ["var(--accent-2)", "var(--accent-3)"],
+  ["var(--accent-3)", "var(--accent-4)"],
+  ["var(--accent-4)", "var(--accent)"],
+  ["var(--accent)", "var(--accent-3)"],
+  ["var(--accent-2)", "var(--accent-4)"],
+];
 ---
 <BaseLayout lang={lang} title={t.meta.title} description={t.meta.description}>
   <div id="top">
@@ -17,6 +27,7 @@ const t = content[lang];
         <div class="hero-bg" aria-hidden="true">
           <span class="blob blob-a"></span>
           <span class="blob blob-b"></span>
+          <span class="blob blob-c"></span>
         </div>
         <div class="wrap hero-inner">
           <span class="monogram hero-monogram">CR</span>
@@ -48,7 +59,11 @@ const t = content[lang];
           </div>
           <div class="skills-grid">
             {t.skills.groups.map((group, i) => (
-              <div class="card skill-card reveal" style={`--delay: ${i * 90}ms`}>
+              <div
+                class="card skill-card reveal"
+                data-accent={skillAccents[i % skillAccents.length]}
+                style={`--delay: ${i * 90}ms`}
+              >
                 <h3 class="skill-category">{group.category}</h3>
                 <div class="skill-chips">
                   {group.items.map((item) => (
@@ -63,17 +78,23 @@ const t = content[lang];
           <div class="strengths reveal">
             <h3 class="strengths-title">{t.skills.strengthsTitle}</h3>
             <div class="strength-list">
-              {t.skills.strengths.map((s) => (
-                <div class="strength-row">
-                  <div class="strength-label">
-                    <span>{s.name}</span>
-                    <span class="strength-pct">{s.level}%</span>
+              {t.skills.strengths.map((s, i) => {
+                const [from, to] = strengthGradients[i % strengthGradients.length];
+                return (
+                  <div class="strength-row">
+                    <div class="strength-label">
+                      <span>{s.name}</span>
+                      <span class="strength-pct">{s.level}%</span>
+                    </div>
+                    <div class="strength-track">
+                      <div
+                        class="strength-fill"
+                        style={`--level: ${s.level}%; --bar-gradient: linear-gradient(90deg, ${from}, ${to})`}
+                      ></div>
+                    </div>
                   </div>
-                  <div class="strength-track">
-                    <div class="strength-fill" style={`--level: ${s.level}%`}></div>
-                  </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </div>
@@ -292,7 +313,7 @@ const t = content[lang];
     position: absolute;
     border-radius: 50%;
     filter: blur(60px);
-    opacity: 0.35;
+    opacity: 0.45;
   }
 
   .blob-a {
@@ -312,12 +333,64 @@ const t = content[lang];
     animation-delay: -6s;
   }
 
+  .blob-c {
+    width: 200px;
+    height: 200px;
+    background: var(--accent-3);
+    top: 30%;
+    right: 24%;
+    opacity: 0.3;
+    animation-delay: -3s;
+  }
+
   .hero-inner {
     position: relative;
     z-index: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-monogram,
+    .eyebrow,
+    .hero-title,
+    .hero-tagline,
+    .hero-actions,
+    .hero-stats {
+      opacity: 0;
+      animation: heroFadeUp 0.7s ease forwards;
+    }
+
+    .eyebrow { animation-delay: 0.15s; }
+    .hero-title { animation-delay: 0.22s; }
+    .hero-tagline { animation-delay: 0.3s; }
+    .hero-actions { animation-delay: 0.38s; }
+    .hero-stats { animation-delay: 0.46s; }
+
+    .hero-monogram {
+      animation: heroFadeUp 0.7s ease 0.05s forwards, monogramPulse 4s ease-in-out 1s infinite;
+    }
+  }
+
+  @keyframes heroFadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes monogramPulse {
+    0%, 100% {
+      box-shadow: 0 12px 32px rgba(79, 70, 229, 0.28);
+    }
+    50% {
+      box-shadow: 0 16px 44px rgba(79, 70, 229, 0.4), 0 0 0 8px rgba(79, 70, 229, 0.08);
+    }
   }
 
   .hero-stats {
@@ -407,6 +480,59 @@ const t = content[lang];
 
   .skill-card {
     padding: 24px;
+    border-top: 3px solid var(--border);
+  }
+
+  .skill-card[data-accent="accent"] {
+    border-top-color: var(--accent);
+  }
+
+  .skill-card[data-accent="accent-2"] {
+    border-top-color: var(--accent-2);
+  }
+
+  .skill-card[data-accent="accent-3"] {
+    border-top-color: var(--accent-3);
+  }
+
+  .skill-card[data-accent="accent-4"] {
+    border-top-color: var(--accent-4);
+  }
+
+  .skill-card[data-accent="accent"] .skill-category {
+    color: var(--accent);
+  }
+
+  .skill-card[data-accent="accent-2"] .skill-category {
+    color: var(--accent-2);
+  }
+
+  .skill-card[data-accent="accent-3"] .skill-category {
+    color: var(--accent-3);
+  }
+
+  .skill-card[data-accent="accent-4"] .skill-category {
+    color: var(--accent-4);
+  }
+
+  .skill-card[data-accent="accent"] .chip-muted {
+    background: var(--accent-soft);
+    color: var(--accent);
+  }
+
+  .skill-card[data-accent="accent-2"] .chip-muted {
+    background: var(--accent-2-soft);
+    color: var(--accent-2);
+  }
+
+  .skill-card[data-accent="accent-3"] .chip-muted {
+    background: var(--accent-3-soft);
+    color: var(--accent-3);
+  }
+
+  .skill-card[data-accent="accent-4"] .chip-muted {
+    background: var(--accent-4-soft);
+    color: var(--accent-4);
   }
 
   .skill-category {
@@ -472,7 +598,7 @@ const t = content[lang];
     height: 100%;
     width: 0%;
     border-radius: 999px;
-    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    background: var(--bar-gradient, linear-gradient(90deg, var(--accent), var(--accent-2)));
     transition: width 1s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
