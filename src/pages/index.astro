@@ -5,40 +5,56 @@ import Footer from "../components/Footer.astro";
 
 const skills = [
   {
-    category: "Languages",
-    items: ["C / C++", "Python 3", "Java", "JavaScript", "Bash", "x86 Assembly"],
+    category: "Frontend",
+    items: ["Angular", "TypeScript", "JavaScript", "HTML5", "CSS", "XML"],
   },
   {
-    category: "Web",
-    items: ["HTML5", "CSS", "XML"],
+    category: "Backend & APIs",
+    items: ["REST APIs", "Database Operations", "Server-Side Rendering", "SQL", "Java", "Python 3", "C / C++"],
   },
   {
-    category: "Systems & Tools",
-    items: ["Linux (Ubuntu/CentOS)", "macOS", "SQL", "UML (NetBeans/Eclipse)", "Object-Oriented Programming"],
+    category: "DevOps & Cloud",
+    items: ["CI/CD Pipelines", "OpenShift", "ArgoCD", "GitLab", "Quay", "Helm Charts", "Linux (Ubuntu/CentOS)"],
+  },
+  {
+    category: "Networking & Infrastructure",
+    items: ["Cisco Switches & Firewalls", "Palo Alto Firewalls", "Server Rack Configuration", "Network Testing"],
   },
   {
     category: "Also experienced with",
-    items: ["Agile / Jira", "Git version control", "C# / OpenGL", "R (RStudio)", "MATLAB", "VBA", "MS Access"],
+    items: ["Agile / Jira", "Git", "Bash", "x86 Assembly", "C# / OpenGL", "R (RStudio)", "MATLAB", "UML", "macOS"],
   },
 ];
 
 const coreStrengths = [
-  { name: "Python", level: 90 },
-  { name: "C / C++", level: 85 },
-  { name: "JavaScript", level: 85 },
-  { name: "Linux / Unix", level: 85 },
-  { name: "SQL", level: 75 },
-  { name: "HTML / CSS", level: 80 },
+  { name: "Full-Stack Development (Angular / TypeScript)", level: 85 },
+  { name: "REST APIs & Backend", level: 85 },
+  { name: "CI/CD & DevOps (OpenShift / ArgoCD)", level: 80 },
+  { name: "Python", level: 85 },
+  { name: "Networking (Cisco / Palo Alto)", level: 75 },
+  { name: "SQL & Databases", level: 75 },
 ];
 
 const experience = [
   {
-    role: "Software Developer",
+    role: "Full-Stack Developer",
     company: "Sandia National Laboratories",
-    period: "Current",
+    period: "Jan 2022 – Present",
     bullets: [
-      "Software development work with a professional background in computer networks.",
-      "Serving as VP of Finance for the SHPE New Mexico Professional Chapter, building on 10+ years of active SHPE membership and leadership.",
+      "Build full-stack applications — frontend with Angular, TypeScript, and HTML; backend with REST APIs, database operations, server-side rendering, and business logic.",
+      "Built CI/CD pipelines from scratch and deploy applications to OpenShift using ArgoCD, Quay, and GitLab.",
+      "Write Helm charts for standard deployment manifests.",
+      "Author documentation, user acceptance tests, and internal test cases.",
+      "Drove code coverage on an application from 0% by writing the majority of its test suite.",
+    ],
+  },
+  {
+    role: "Network Associate Engineer",
+    company: "SAIC (Science Applications International Corporation)",
+    period: "Oct 2020 – Dec 2021",
+    bullets: [
+      "Configured server racks, Cisco switches and firewalls, and Palo Alto firewalls from the box.",
+      "Developed a network testing environment.",
     ],
   },
 ];
@@ -85,8 +101,8 @@ const projects = [
           </div>
           <div class="hero-stats">
             <div class="stat">
-              <span class="stat-num" data-count="6">0</span>
-              <span class="stat-label">Languages</span>
+              <span class="stat-num" data-count="5">0</span>
+              <span class="stat-label">Years Experience</span>
             </div>
             <div class="stat">
               <span class="stat-num" data-count="2">0</span>
