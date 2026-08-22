@@ -39,6 +39,8 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-snap-type: y proximity;
+  scroll-padding-top: 68px;
 }
 
 body {
@@ -69,6 +71,7 @@ a {
 
 .section {
   padding: 88px 0;
+  scroll-snap-align: start;
 }
 
 .section-label {
